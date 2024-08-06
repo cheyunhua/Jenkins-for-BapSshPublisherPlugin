@@ -14,6 +14,7 @@ from PyQt5.QtCore import Qt, QRectF, QDir
 from PyQt5.QtGui import QIcon, QPainter, QPainterPath, QBrush, QColor, QCursor
 from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QFileDialog
 import sys
+from bs4 import BeautifulSoup
 
 if os.path.isfile('init.ini'):
     with open("./init.ini", "r") as file:
@@ -282,6 +283,10 @@ publish_over_ssh.save()'''
         response = requests.post(self.script_url,
                                  auth=(self.jenkinsUserName, self.jenkinsPassword), data=data, verify=False)
         return response.text
+
+
+
+
 
 
 class Ui_jenkinslogin(RoundShadow, QWidget):
@@ -584,9 +589,10 @@ class Ui_ImportCreds(RoundShadow, QWidget):
 
         def exec_():
             for i in range(0, len(df)):
-                ip = str(df.iloc[i][0]).strip()
-                username = str(df.iloc[i][1]).strip()
-                password = str(df.iloc[i][2]).strip()
+                name = str(df.iloc[i][0]).strip()
+                ip = str(df.iloc[i][1]).strip()
+                username = str(df.iloc[i][2]).strip()
+                password = str(df.iloc[i][3]).strip()
                 # if self.checkIP(ip) == False:
                 #     ip = str(df.iloc[i - 1][1])
                 #     port = int(df.iloc[i - 1][5])
@@ -611,18 +617,18 @@ class Ui_ImportCreds(RoundShadow, QWidget):
                         self.textBrowser.append('完成{0}的凭据的添加操作。'.format(ip))
                         self.textBrowser.moveCursor(self.textBrowser.textCursor().End)
 
-                    if ip in SshHostConfiguration().getHostConfigurations():
-                        SshHostConfiguration().removeHostConfiguration("{0}@{1}".format(username, ip))
-                        SshHostConfiguration().addHostConfiguration("{0}@{1}".format(username, ip), ip,
+                    if name in SshHostConfiguration().getHostConfigurations():
+                        SshHostConfiguration().removeHostConfiguration(name)
+                        SshHostConfiguration().addHostConfiguration(name, ip,
                                                                     username, '/usr/local/server',
                                                                     password)
 
-                        self.textBrowser.append('{0}的SSH授权配置已经存在，执行更新配置操作。'.format(ip))
+                        self.textBrowser.append('{0}的SSH授权配置已经存在，执行更新配置操作。'.format(name))
                     else:
-                        SshHostConfiguration().addHostConfiguration("{0}@{1}".format(username, ip), ip,
+                        SshHostConfiguration().addHostConfiguration(name, ip,
                                                                     username, '/usr/local/server',
                                                                     password)
-                        self.textBrowser.append('完成{0}的SSH授权的添加操作。'.format(ip))
+                        self.textBrowser.append('完成{0}的SSH授权的添加操作。'.format(name))
 
                     # else:
                     #     self.textBrowser.append(
