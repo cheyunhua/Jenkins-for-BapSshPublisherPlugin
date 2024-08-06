@@ -8,5 +8,21 @@ jenkins在高版本需要关闭
 
 在下面脚本命令行中输入
 hudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION = true
+注意事项2
+
+ 在jenkins下的/root/.jenkins执行   cat jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml |grep /name | sed 's@<name>@@g' |sed 's@</name>@@g'  复制到test.xlsx的列1
+
+
+ cat jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml |grep /name | sed 's@<hostname>@@g' |sed 's@</hostname>@@g'   复制到test.xlsx的列2
+
+
+ 注意事项2
+  注意jenkins的变量以及pycharm版本为2024.1.4   jenkins版本2.466
+ 
+  
+
+
+
+
 
 这个脚本是在https://www.modb.pro/db/1785179394042040320基础上改编而成
