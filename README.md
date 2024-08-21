@@ -8,6 +8,9 @@
 
     在下面脚本命令行中输入
      hudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION = true
+     在jenkins主机上一定要创建这个文件    mkdir  /run/secrets    && touch  /run/secrets/PUBLISH_OVER_SSH_KEY
+
+
 注意事项2：
    
 
