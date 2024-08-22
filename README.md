@@ -7,9 +7,14 @@
     系统管理-》script Console
 
     在下面脚本命令行中输入
-     hudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION = true
-     在jenkins主机上一定要创建这个文件    mkdir  /run/secrets    && touch  /run/secrets/PUBLISH_OVER_SSH_KEY
+     1.1 hudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION = true
+     1.2 在jenkins主机上一定要创建这个文件    mkdir  /run/secrets    && touch  /run/secrets/PUBLISH_OVER_SSH_KEY
 
+     1.3   SshHostConfiguration().addHostConfiguration(name, ip,
+                                                                    username, '/usr/local/server',  #注意修改/usr/local/server，不然会被覆盖
+                                                                    password)
+                                                         
+    1.4、注意修改jenkins地址的变量
 
 注意事项2：
    
